@@ -23,7 +23,82 @@
     confirm_query($page_set);
     return $page_set;
   }
-  function get_subject_by_id () {
-    
+  function get_subject_by_id ($subject_id) {
+    global $connection;
+    $query = "SELECT * ";
+    $query .= "FROM subjects ";
+    $query .= "WHERE id=" . $subject_id . " ";
+    $query .= "LIMIT 1";
+    $result_set = mysql_query($query, $connection);
+    confirm_query($result_set);
+    // REMEMBER
+    // if no rows are returned, fetch_array will return false
+    if ($subject = mysql_fetch_array($result_set)) {
+      return $subject;
+    } else {
+      return NULL;
+    }
+  }
+  function get_page_by_id ($page_id) {
+    global $connection;
+    $query = "SELECT * ";
+    $query .= "FROM pages ";
+    $query .= "WHERE id=" . $page_id . " ";
+    $query .= "LIMIT 1";
+    $result_set = mysql_query($query, $connection);
+    confirm_query($result_set);
+    if ($page = mysql_fetch_array($result_set)) {
+      return $page;
+    } else {
+      return NULL;
+    }
+  }
+  function find_selected_page() {
+    global $select_subject;
+    global $select_page;
+    if (isset($_GET['subj'])) {
+      $sel_subj = $_GET['subj'];
+      $select_page = NULL;
+      $select_subject = get_subject_by_id($sel_subj);
+    } elseif (isset($_GET['page'])) {
+      $select_subject = NULL;
+      $sel_page = $_GET['page'];
+      $select_page = get_page_by_id($sel_page);
+    } else {
+      $select_page = NULL;
+      $select_subj = NULL;
+    }
+  }
+  function navigation() {
+    $output = "<ul class=\"subjects\">";
+      // 3. Perform Database Query
+      $subject_set = get_all_subjects();
+      // 4. Use returned data
+      while ($subject = mysql_fetch_array($subject_set)) {
+        $encSubjId = urlencode($subject["id"]);
+        if ($encSubjId == $sel_subj) {
+          $output .= "<li class=\"selected\"><a href=\"content.php?subj=" . $encSubjId . 
+                "\">{$subject["menu_name"]}</li>"; 
+        } else {
+          $output .= "<li><a href=\"content.php?subj=" . $encSubjId . 
+                "\">{$subject["menu_name"]}</li>"; 
+        }        
+        $page_set = get_all_pages_for_subject($subject["id"]);
+        // 4. Use returned data
+        $output .= "<ul class=\"pages\">";
+        while ($page = mysql_fetch_array($page_set)) {
+          $encPageId = urlencode($page["id"]);
+          if ($encPageId == $sel_page) {
+            $output .= "<li class=\"selected\"><a href=\"content.php?page=" . urlencode($page["id"]) . 
+                  "\">{$page["menu_name"]}</a></li>";
+          } else {
+            $output .= "<li><a href=\"content.php?page=" . urlencode($page["id"]) . 
+                  "\">{$page["menu_name"]}</a></li>";
+          }      
+        }
+          $output .= "</ul>";
+      }
+    $output .= "</ul>";
+    return $output;
   }
 ?>
