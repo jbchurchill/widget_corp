@@ -17,7 +17,15 @@
         <p>Subject Name: <input type="text" name="menu_name", value="" id="menu_name" /></p>
         <p>Position: 
           <select name="position">
-            <option value="1">1</option>
+            <?php 
+              $subject_set = get_all_subjects();
+              $subject_count = mysql_num_rows($subject_set);
+              for ($count=1; $count <= $subject_count+1; $count++) {
+                echo "<option value=\"{$count}\">{$count}</option>";
+                // wouldn't it be easier to just automatically assign position to $count+1 ????
+              }
+            ?>
+            
           </select>
         </p>
         <p>Visible: 
