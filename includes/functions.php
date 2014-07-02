@@ -2,7 +2,7 @@
   // This file is a place to store all our functions
   function mysql_prep ($value) {
     $magic_quotes_active = get_magic_quotes_gpc();
-    $new_enough_php = function_exists(v"mysql_real_escape_string" ); // i.e. PHP >= 4.3.0
+    $new_enough_php = function_exists("mysql_real_escape_string" ); // i.e. PHP >= 4.3.0
     if ( $new_enough_php ) { // PHP 4.3.0 or higher
       // undo any magic quote effects so mysql_real_escape_string can do the work
       if ( $magic_quotes_active ) { $value = stripslashes( $value ); }
@@ -97,10 +97,10 @@
       while ($subject = mysql_fetch_array($subject_set)) {
         $encSubjId = urlencode($subject["id"]);
         if ($encSubjId == $sel_subj) {
-          $output .= "<li class=\"selected\"><a href=\"content.php?subj=" . $encSubjId . 
+          $output .= "<li class=\"selected\"><a href=\"edit_subject.php?subj=" . $encSubjId . 
                 "\">{$subject["menu_name"]}</li>"; 
         } else {
-          $output .= "<li><a href=\"content.php?subj=" . $encSubjId . 
+          $output .= "<li><a href=\"edit_subject.php?subj=" . $encSubjId . 
                 "\">{$subject["menu_name"]}</li>"; 
         }        
         $page_set = get_all_pages_for_subject($subject["id"]);
