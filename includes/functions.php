@@ -1,4 +1,4 @@
-<?php
+<?php 
   // This file is a place to store all our functions
   function mysql_prep ($value) {
     $magic_quotes_active = get_magic_quotes_gpc();
@@ -16,8 +16,8 @@
   }
   function redirect_to ($location = NULL) {
     if ($location != NULL) {
-      headers("Location: {$location}");
-    exit;
+      header("Location: {$location}");
+      exit;
     }
   }
   function confirm_query ($result_set) {
@@ -86,7 +86,7 @@
       $select_page = get_page_by_id($sel_page);
     } else {
       $select_page = NULL;
-      $select_subj = NULL;
+      $select_subject = NULL;
     }
   }
   function navigation() {

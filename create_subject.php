@@ -4,15 +4,15 @@
 ?>
 <?php
   // Form Validation
-  $requiredfields =  array('menu_name', 'position', 'visible');
+  $requiredfields = array('menu_name', 'position', 'visible');
   foreach ($requiredfields as $fieldname) {
     if (!isset($_POST['$fieldname']) || empty($_POST['$fieldname'])) {
       $errors[] = 'menu_name';
     }
   }
-  if (!empty($errors)) {
-    redirect_to("new_subject.php");
-  }
+  // if (!empty($errors)) {
+  //   redirect_to('new_subject.php');
+  // }
 ?>
 <?php
   $menu_name = mysql_prep($_POST['menu_name']);
@@ -27,11 +27,12 @@
   )";
   if (mysql_query($query, $connection));
   if (!$result_set) {
-    // Success
     header("Location: content.php");
+    exit;
   } else {
     // Display error message  
     echo "<p>Subject Creation failed.</p>";
     echo "<p>" . mysql_error() . "</p>";
   }
 ?>
+<?php mysql_close($connection); ?>

@@ -22,10 +22,18 @@
 	      echo "<h2>{$select_page['menu_name']}</h2>"; // or use inline substitution 
 	    } else {
 	  	  echo "<h2>Select a subject or page to edit</h2>";
-	    }  
+	    }
 	  ?>
 	  <div id="page-content">
 	    <?php echo "{$select_page['content']}"; ?>
+	  </div>
+	  <div id="edit_page">
+	  <br /><br />
+	    <?php
+	      if (!$select_page == NULL) {
+	        echo "<a href=\"edit_page.php?page={$select_page['id']}\">Edit this page</a>";
+	      }
+	    ?>
 	  </div>
 	  
     </td>
