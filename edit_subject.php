@@ -124,7 +124,32 @@
         <a href="delete_subject.php?subj=<?php echo urlencode($select_subject['id']); ?>" onclick="return confirm('Are you sure?');">Delete Subject</a>
       </form>
       <br />
-      <a href="content.php">Cancel</a>
+      <a href="content.php">Cancel</a>      
+      <br />
+      <hr />
+
+      <h2>Pages under this Subject</h2
+      <p>
+        <?php echo "<h3>Subject: " . $select_subject['menu_name'] . " - " . $select_subject['id'] . "</h3>"; ?>
+        <?php 
+          $page_set = get_all_pages_for_subject($select_subject['id']); // $select_subject['id']);
+          echo "Rows: " . mysql_num_rows($page_set) . "<br />";
+          echo "Subject Id: " . $select_subject['id'] . "<br />";
+          if (mysql_num_rows($page_set) == 0) {
+          
+            echo "<ul>";
+            ////////$page_result = mysql_fetch_array($page_set);
+            ////////print_r(array_values($page_result));
+            while($page = mysql_fetch_array($page_set)) {
+              echo "<li><a href=\"content.php?page={$page['id']}\">
+              {$page['menu_name']}</a></li>";
+            }
+            echo "</ul>";
+          } // End of if numrows == 0
+          ?>
+          <a href="new_page.php">+ Add New Page</a>          
+      </p>
+      
     </td>
   </tr>
 </table>    

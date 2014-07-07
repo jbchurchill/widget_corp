@@ -11,7 +11,7 @@
     }
   }
   // if (!empty($errors)) {
-  //   redirect_to('new_subject.php');
+  //  redirect_to('new_subject.php');
   // }
 ?>
 <?php

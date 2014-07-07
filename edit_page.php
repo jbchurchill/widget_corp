@@ -7,29 +7,23 @@
     redirect_to("content.php");
   }
 ?>
+<?php include_once("includes/form_functions.php"); ?>
 <?php
   if (isset($_POST['submit'])) {
     // DO UPDATE OPERATIONS BECAUSE DATA HAS BEEN POSTED FROM THIS FORM.
     $errors = array();
     
     $required_fields = array('subject_id', 'menu_name', 'position', 'visible', 'content');
-    foreach($required_fields as $fieldname) {
-      if (!isset($_POST[$fieldname]) || (empty($_POST[$fieldname])) && !is_numeric($_POST[$fieldname])) {
-        $errors[] = $fieldname;
-      }
-    }
+    $errors = array_merge($errors, check_required_fields($required_fields));
+
     $fields_with_lengths = array('menu_name' => 30);
-    foreach($fields_with_lengths as $fieldname => $maxlength) {
-      if (strlen(trim(mysql_prep($_POST[$fieldname]))) > $maxlength) {
-        $errors[] = $fieldname;
-      }
-    }
+    $errors = array_merge($errors, check_max_field_lengths($fields_with_lengths));
     
     if (empty($errors)) {
       // There are no Errors - Perform Update
       $id = mysql_prep($_GET['page']);
       $subject_id = mysql_prep($_POST['subject_id']);
-      $menu_name = mysql_prep($_POST['menu_name']);
+      $menu_name = trim(mysql_prep($_POST['menu_name']));
       $position = mysql_prep($_POST['position']);
       $visible = mysql_prep($_POST['visible']);
       $content = mysql_prep($_POST['content']);
@@ -160,7 +154,7 @@
         </p>
         <input type="submit" name="submit" value="Edit Page" />
         &nbsp;&nbsp;
-        <a href="delete_page.php?subj=<?php echo urlencode($select_page['id']); ?>" onclick="return confirm('Are you sure?');">Delete Page</a>        
+        <a href="delete_page.php?page=<?php echo urlencode($select_page['id']); ?>" onclick="return confirm('Are you sure?');">Delete Page</a>        
       </form>
       <br />
       <a href="content.php">Cancel</a>
