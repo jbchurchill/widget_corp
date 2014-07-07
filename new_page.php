@@ -4,7 +4,8 @@
   require_once("includes/form_functions.php");
 ?>
 <?php
-  find_selected_page()
+  // find_selected_page();
+  $page_passed_in = mysql_prep($_GET['subj']);
 ?>
 <?php include("includes/header.php"); ?>
 <table id="structure">
@@ -16,7 +17,8 @@
       <h2>Add Page</h2>
       <form action="create_page.php" method="post">
         <p>Page Name: <input type="text" name="menu_name" /></p>
-        <p>Subject: <?php generate_subject_select_control('subject_id'); ?>
+        <?php echo "Selected Subject: " . $page_passed_in . "<br />"; ?>
+        <p>Subject: <?php generate_subject_select_control('subject_id', $page_passed_in);  // $page_passed_in); ?>
         </p>
         <p>Position: 
           <select name="position">

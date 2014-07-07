@@ -18,12 +18,16 @@
     }
     return $errors;
   }
-  function generate_subject_select_control($name) {
+  function generate_subject_select_control($name, $subject_id) {
     include_once("functions.php");
     $subject_set = get_all_subjects();
     echo "<select name=\"{$name}\" id=\"{$name}\">";
     while ($row = mysql_fetch_array($subject_set)) {
-      echo "<option value=\"{$row['id']}\">{$row['menu_name']}</option><br />";
+      if ($row['id'] == $subject_id) {
+        echo "<option value=\"{$row['id']}\" selected>{$row['menu_name']}</option><br />";
+      } else {
+        echo "<option value=\"{$row['id']}\">{$row['menu_name']}</option><br />";
+      }
     }
     // $subj_array = mysql_fetch_array($subject_set);
     // echo "<select>";
