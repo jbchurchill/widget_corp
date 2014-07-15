@@ -6,8 +6,11 @@
 <?php
   // find_selected_page();
   $page_passed_in = mysql_prep($_GET['subj']);
+  find_selected_page();
+  $subject_passed_in = $select_subject['menu_name'];
 ?>
-<?php include("includes/header.php"); ?>
+<?php include("includes/header_w_js.php"); ?>
+
 <table id="structure">
   <tr>
     <td id="navigation">
@@ -17,11 +20,98 @@
       <h2>Add Page</h2>
       <form action="create_page.php" method="post">
         <p>Page Name: <input type="text" name="menu_name" /></p>
+          <?php 
+            $position_array_for_select_control = get_positions_by_subject();
+            
+            // print_r(json_encode($position_array_for_select_control));
+            // print_r($position_array_for_select_control);
+            // echo getcwd();
+            // echo $page_passed_in . "<br />";
+            print_r($position_array_for_select_control);
+            echo "<br />";
+            echo max($position_array_for_select_control[$select_subject['menu_name']]) . "<br />";
+            // I CAN USE THE ABOVE LINE TO SET THE DEFAULT MAX POSITION FOR THE PAGE AT THE START
+            // BUT IT WON'T UPDATE WITH NEWLY SELECTED SUBJECTS
+            // WHAT WOULD REALLY BE GOOD IS AN ARRAY OF THE MAX POSITION FOR EACH SUBJECT.
+            $json_array = json_encode($position_array_for_select_control);
+            $uSWfile = "files/uSWfile.json";
+            file_put_contents($uSWfile, $json_array);
+            // print_r($json_array);
+            echo '<script type="text/javascript">';
+            // echo "alert('hello')";
+            // echo 'var js_array = json_encode($position_array_for_select_control)';
+            // echo 'alert(js_array[1])';
+            echo '</script>';            
+          ?>
+
+          <!-- Moved Up -->
+          <?php echo "Selected Subject: " . $page_passed_in . " - " . $select_subject['menu_name'] . "<br />"; ?>  
+          <p>
+          Subject:<br />
+          <select id="subjects"></select><br />
+          </p>
+          <p>
+          Position:<br />
+          <select id="position"></select><br />
+          </p>
+        
+          <!-- NEW JAVASCRIPT -->
+          <script>
+            
+            $(document).ready(function () {
+            "use strict";
+
+              var selectData, $subjects;
+              function updateSelects() {
+                var positions = $.map(selectData[this.value], function (pos) {
+                    return $("<option />").text(pos);
+                });
+                                                                                
+                $("#position").empty().append(positions);
+                // Set selected Position (currently works only if the selected subject is selected)
+                // Selected subject being the subject the add new page was launched from.
+                $('#position').val("<?php echo max($position_array_for_select_control[$select_subject['menu_name']]); ?>");
+
+              }
+              
+              // $.getJSON("javascripts/updateSelectWidget.json", function (data) {
+              $.getJSON("files/uSWfile.json", function (data) {
+                var subject;
+                selectData = data;
+                $subjects = $("#subjects").on("change", updateSelects);
+                for (subject in selectData) {
+                  $("<option />").text(subject).appendTo($subjects);
+                  if (subject == "<?php echo $subject_passed_in; ?>") {
+                    $('#subjects').val("<?php echo $subject_passed_in; ?>");  // THIS IS SUPPOSED TO WORK BY value
+                  }
+                }
+                $subjects.change();
+              }); // MIGHT NOT NEED A FUNCTION
+            });
+            
+          </script>
+          
+            
+
+        <!--  COMMENTING OUT THE ENTIRE SUBJECT AND POSITION SECTION AND
+        ADDING IT IN ABOVE.
+        HAD TO FOREGO THE CREATION OF THE SELECT CONTROL 
+        VIA PHP FUNCTION        
         <?php echo "Selected Subject: " . $page_passed_in . "<br />"; ?>
-        <p>Subject: <?php generate_subject_select_control('subject_id', $page_passed_in);  // $page_passed_in); ?>
+        <p>Subject: 
+          <?php 
+            echo "<script type=\"text/javascript\">";
+            echo "var jArray= " . json_encode($position_array_for_select_control);
+            // for(var i=0;i<jArray.length;i++){
+            //   alert(jArray[i]);
+            // }
+
+            echo "</script>";
+            generate_subject_select_control('subject_id', $page_passed_in, json_encode(json_encode($position_array_for_select_control)));  // Function generates select control 
+          ?>
         </p>
         <p>Position: 
-          <select name="position">
+          <select name="position" id="position">
             <?php 
               $subject_set = get_all_subjects();
               $subject_count = mysql_num_rows($subject_set);
@@ -33,6 +123,9 @@
             
           </select>
         </p>
+        --> 
+        
+        
         <p>Visible: 
           <input type="radio" name="visible" value="0" />No
           &nbsp;

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script> -->
+<script src="jquery.min.js"></script>
+</head>
+<body>
+
+    <select id="subjects"></select>
+    <select id="position"></select>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+    "use strict";
+
+    var selectData, $subjects;
+
+    function updateSelects() {
+        var positions = $.map(selectData[this.value], function (pos) {
+            return $("<option />").text(pos);
+        });
+        $("#position").empty().append(positions);
+    }
+
+    $.getJSON("updateSelectWidget.json", function (data) {
+        var subject;
+        selectData = data;
+        $subjects = $("#subjects").on("change", updateSelects);
+        for (subject in selectData) {
+            $("<option />").text(subject).appendTo($subjects);
+            // THIS IS CURRENTLY HARD-CODED TO MAKE SERVICES THE SELECTED OPTION 
+            if (subject == 'Services') {
+              $('#subjects').val('Services');  // THIS IS SUPPOSED TO WORK BY value
+              // $('#subjects').val($('#subjects option').eq(2).val()); // COULD ALSO SELECT BY INDEX
+            }
+        }
+        $subjects.change();
+    });
+});
+</script>
+
+<!--
+<select id="subject" name="subject" onchange="updatePosition('position', this.value)">
+<option value="1">Widget Corp</option>
+<option value="2">Products</option>
+<option value="3">Services</option>
+<option value="4">Other Shit</option>
+</select>
+
+
+
+<select id="position">
+    <option>Choose a number</option>
+</select>
+
+-->
+<p>When you change the Subject Input, a function is triggered which empties the Position Inputs &#8220;options&#8221; and fills it with position values from the jArray array (using positions 3 and up).
+The array is configured like this {Subject, Subject_id, [array of values] ]</p>
+<p>I just noticed that the third value of the array is incorrect too since it should be an array.</p>
+
+</body>
+</html>

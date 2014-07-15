@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script type="text/javascript">
+      function updatePosition(name, idx) {
+        // name is the id of the position select control
+        
+      // var idx = 0; // index is subject_id minus 1
+      // alert(name);
+idx -= 1;
+
+// var jArray=[["About Widget Corp","1",["1","2"]],["Products","2",["1"]],["Services","3",["1"]]];
+
+var jArray = new Array(new Array('About Widget Corp', 1, 1, 2), new Array('Products', 2, 1), new Array('Services', 3, 1), new Array('Other Shit', 4, 1, 2, 3, 4, 5, 6));
+        // $('position').empty();      
+      var select = document.getElementById(name); // ('position');
+
+
+var cntArray = new Array();
+
+var length = select.options.length;
+// alert("SELECT.OPTIONS.LENGTH: " + select.options.length);
+for (var i = 0; i < length; i++) {
+  alert("removing select option: " + i);
+  select.options[i] = null;
+}
+
+// for (var i = 0; i < jArray[idx].length-2; i++) {
+//   z = i + 2;
+//   f = jArray[idx][z];
+//   alert(f);
+//   cntArray.push(f);
+//   var el = document.createElecment
+//   select.options[i] = null;
+// }
+// alert("LENGTH:  " + cntArray.length);
+// for (var i = 0; i < cntArray.length; i++) {
+//   select.options[i] = null;
+// }
+
+
+// alert(length + " - IDX: " + idx);
+
+
+// This does NOT appear to empty the select options
+// I suspect it is counting using the previous list of options.
+// for (i = 0; i < length + 2; i++) {
+//   select.options[i] = null;
+// }
+
+
+        // select.options.empty();
+
+        for(var i = 0; i < jArray[idx].length-2; i++) {
+            z = i + 2
+            alert("Adding: " + jArray[idx][z]);
+            var opt = jArray[idx][z];
+            var el = document.createElement("option");
+            el.textContent = opt;
+            el.value = opt;
+            // el.class = opt;
+            // if (el.value == idx) {
+            alert("z: " + z + " - IDX: " + idx + " - OPT: " + opt);
+            //   el.Selected = true;
+            // } THIS IS NOT CORRECT BC idx IS BASED ON SUBJECT NOT POS.
+            select.appendChild(el);
+            // opt2 = el.value + 1;
+        }
+        // opt2 += 1;
+        // var el = document.createElement("option");
+        // el.textContent = opt +1;
+        // el.value = opt +1;
+        // select.appendChild(el);
+        // I DO NOT UNDERSTAND WHY ADDING ONE EXTRA SCREWS EVERYTHING UP  
+      }
+      
+      
+    </script>
+</head>
+<body>
+
+
+
+
+<select id="subject" name="subject" onchange="updatePosition('position', this.value)">
+<option value="1">Widget Corp</option>
+<option value="2">Products</option>
+<option value="3">Services</option>
+<option value="4">Other Shit</option>
+</select>
+
+
+
+<select id="position">
+    <option>Choose a number</option>
+</select>
+
+
+<p>When you change the Subject Input, a function is triggered which empties the Position Inputs &lquot;options&rquot; and fills it with position values from the jArray array (using positions 3 and up).
+The array is configured like this {Subject, Subject_id, [array of values] ]</p>
+<p>I just noticed that the third value of the array is incorrect too since it should be an array.</p>
+
+</body>
+</html>

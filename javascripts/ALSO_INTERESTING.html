@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script type="text/javascript">
+      function updatePosition(name, idx) {
+        // name is the id of the position select control
+        
+      // var idx = 0; // index is subject_id minus 1
+      // alert(name);
+idx -= 1;
+
+// var jArray=[["About Widget Corp","1",["1","2"]],["Products","2",["1"]],["Services","3",["1"]]];
+
+
+
+
+
+var jArray = new Array(new Array('About Widget Corp', 1, new Array(1, 2)), new Array('Products', 2, new Array(1)), new Array('Services', 3, new Array(1)));
+        // $('position').empty();      
+      var select = document.getElementById(name); // ('position');
+
+var length = select.options.length;
+// alert(length);
+for (i = 0; i < length + 2; i++) {
+  select.options[i] = null;
+}
+
+
+        // select.options.empty();
+var opt2 = 0;
+        for(var i = 0; i < jArray[idx][2].length; i++) {
+            // z = i + 2;
+            // alert(jArray[idx][z]);
+            var opt = jArray[idx][2][i];
+alert(idx + " - " + i + " - " + jArray[idx][2][i]);
+            var el = document.createElement("option");
+            el.textContent = opt;
+            el.value = opt;
+            // if (el.value == idx) {
+            //   el.Selected = true;
+            // } THIS IS NOT CORRECT BC idx IS BASED ON SUBJECT NOT POS.
+            select.appendChild(el);
+            // opt2 = el.value + 1;
+        }
+        // opt2 += 1;
+        // var el = document.createElement("option");
+        // el.textContent = opt +1;
+        // el.value = opt +1;
+        // select.appendChild(el);
+        // I DO NOT UNDERSTAND WHY ADDING ONE EXTRA SCREWS EVERYTHING UP  
+      }
+    </script>
+</head>
+<body>
+
+
+
+
+<select id="subject" name="subject" onchange="updatePosition('position', this.value)">
+<option value="1">Widget Corp</option>
+<option value="2">Products</option>
+<option value="3">Services</option>
+</select>
+
+
+
+<select id="position">
+    <option>Choose a number</option>
+</select>
+
+
+<p>With this one I learned that one value does not an array make</p>
+
+</body>
+</html>

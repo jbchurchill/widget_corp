@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+
+</head>
+<body>
+
+    <select id="us_states"></select>
+    <select id="city_names"></select>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+    "use strict";
+
+    var selectData, $states;
+
+    function updateSelects() {
+        var cities = $.map(selectData[this.value], function (city) {
+            return $("<option />").text(city);
+        });
+        $("#city_names").empty().append(cities);
+    }
+
+    $.getJSON("updateSelect.json", function (data) {
+        var state;
+        selectData = data;
+        $states = $("#us_states").on("change", updateSelects);
+        for (state in selectData) {
+            $("<option />").text(state).appendTo($states);
+        }
+        $states.change();
+    });
+});
+</script>
+
+<!--
+<select id="subject" name="subject" onchange="updatePosition('position', this.value)">
+<option value="1">Widget Corp</option>
+<option value="2">Products</option>
+<option value="3">Services</option>
+<option value="4">Other Shit</option>
+</select>
+
+
+
+<select id="position">
+    <option>Choose a number</option>
+</select>
+
+-->
+<p>When you change the Subject Input, a function is triggered which empties the Position Inputs &lquot;options&rquot; and fills it with position values from the jArray array (using positions 3 and up).
+The array is configured like this {Subject, Subject_id, [array of values] ]</p>
+<p>I just noticed that the third value of the array is incorrect too since it should be an array.</p>
+
+</body>
+</html>
