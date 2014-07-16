@@ -19,7 +19,7 @@
     <td id="page">
       <h2>Add Page</h2>
       <form action="create_page.php" method="post">
-        <p>Page Name: <input type="text" name="menu_name" /></p>
+        <p>Page Name: <input type="text" name="menu_name" id="menu_name" /></p>
           <?php 
             $position_array_for_select_control = get_positions_by_subject();
             
@@ -47,12 +47,12 @@
           <!-- Moved Up -->
           <?php echo "Selected Subject: " . $page_passed_in . " - " . $select_subject['menu_name'] . "<br />"; ?>  
           <p>
-          Subject:<br />
-          <select id="subjects"></select><br />
+            Subject:<br />
+            <select id="subjects" name="subject"></select><br />
           </p>
           <p>
-          Position:<br />
-          <select id="position"></select><br />
+            Position:<br />
+            <select id="position" name="position"></select><br />
           </p>
         
           <!-- NEW JAVASCRIPT -->
@@ -86,6 +86,10 @@
                   }
                 }
                 $subjects.change();
+                // testing APPARRENTLY I DO HAVE A SELECTED VALUE BUT IT DOES NOT POST
+                // var val = $("#subjects option:selected").text();
+                // alert(val);
+                // testing END - THIS SHOWS HOW TO SEE THE SELECTED text .text() or value .val() 
               }); // MIGHT NOT NEED A FUNCTION
             });
             
@@ -124,8 +128,20 @@
           </select>
         </p>
         --> 
+        <?php 
+          // $subject_set = get_all_subjects();
+          // while ($row = mysql_fetch_array($subject_set)) {
+          //   echo "snow white: " . $row['id'] . " - " . $row['menu_name'] . "<br />";
+          //   if 
+          // }
+          // $subject_count = mysql_num_rows($subject_set);
+          // for ($count=1; $count <= $subject_count+1; $count++) {
+          //   if $subject_set[
+          // }          
+          // echo "rumplestiltskin: " . $subject_set;
+        ?>  
         
-        
+        <!-- <input type="hidden" id="subject_id" value="<?php echo some_variable; ?>" /> -->
         <p>Visible: 
           <input type="radio" name="visible" value="0" />No
           &nbsp;
