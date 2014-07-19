@@ -119,33 +119,38 @@
             echo "WHAT IS YOUR START PAGE ?";
           }        
         }
-        $page_set = get_all_pages_for_subject($subject["id"]);
-        // 4. Use returned data
         $output .= "<ul class=\"pages\">";
-        while ($page = mysql_fetch_array($page_set)) {
-          $encPageId = urlencode($page["id"]);
-          if ($encPageId == $select_page['id']) {
-            if ($start_page == "content.php") {
-              $output .= "<li class=\"selected\"><a href=\"content.php?page=" . urlencode($page["id"]) . 
-                    "\">{$page["menu_name"]}</a></li>";            
-            } elseif ($start_page == "index.php") {
-              $output .= "<li class=\"selected\"><a href=\"index.php?page=" . urlencode($page["id"]) . 
-                    "\">{$page["menu_name"]}</a></li>";
+        $page_set = get_all_pages_for_subject($subject["id"]);
+        // MAKE ALL OF THIS WORK ONLY ON THE SELECTED SUBJECT
+        if (($subject['id'] == $select_subject['id']) || ($subject['id'] == $select_page['subject_id'])) {
+
+          // 4. Use returned data
+
+          while ($page = mysql_fetch_array($page_set)) {
+            $encPageId = urlencode($page["id"]);
+            if ($encPageId == $select_page['id']) {
+              if ($start_page == "content.php") {
+                $output .= "<li class=\"selected\"><a href=\"content.php?page=" . urlencode($page["id"]) . 
+                      "\">{$page["menu_name"]}</a></li>";            
+              } elseif ($start_page == "index.php") {
+                $output .= "<li class=\"selected\"><a href=\"index.php?page=" . urlencode($page["id"]) . 
+                      "\">{$page["menu_name"]}</a></li>";
+              } else {
+                // hmmmm
+              }
             } else {
-              // hmmmm
-            }
-          } else {
-            if ($start_page == "content.php") {
-              $output .= "<li><a href=\"content.php?page=" . urlencode($page["id"]) . 
-                    "\">{$page["menu_name"]}</a></li>";
-            } elseif ($start_page == "index.php") {
-              $output .= "<li><a href=\"index.php?page=" . urlencode($page["id"]) . 
-                   "\">{$page["menu_name"]}</a></li>";
-            } else {
-              echo "WHAT IS YOUR START PAGE ?";
-            }
-          } // end of else related to whether a page was selected or not.
-        }
+              if ($start_page == "content.php") {
+                $output .= "<li><a href=\"content.php?page=" . urlencode($page["id"]) . 
+                      "\">{$page["menu_name"]}</a></li>";
+              } elseif ($start_page == "index.php") {
+                $output .= "<li><a href=\"index.php?page=" . urlencode($page["id"]) . 
+                     "\">{$page["menu_name"]}</a></li>";
+              } else {
+                echo "WHAT IS YOUR START PAGE ?";
+              }
+            } // end of else related to whether a page was selected or not.
+          } // end of while
+          } // end of if
           $output .= "</ul>";
       }
     $output .= "</ul>";
