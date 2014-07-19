@@ -14,7 +14,7 @@
 <table id="structure">
   <tr>
     <td id="navigation">
-    <?php echo navigation() ?>
+    <?php echo navigation("content.php") ?>
     </td>
     <td id="page">
       <h2>Add Page</h2>

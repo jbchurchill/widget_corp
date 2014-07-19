@@ -64,7 +64,7 @@
 <table id="structure">
   <tr>
     <td id="navigation">
-    <?php echo navigation() ?>
+    <?php echo navigation("content.php") ?>
     </td>
     <td id="page">
       <h2>Edit Subject <?php echo $select_subject['menu_name']; ?></h2>

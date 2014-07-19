@@ -65,7 +65,7 @@
 <table id="structure">
   <tr>
     <td id="navigation">
-      <?php echo navigation(); ?>
+      <?php echo navigation("content.php"); ?>
       <br />
       <a href="new_page.php">+ Add a new page</a>
     </td>
