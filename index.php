@@ -43,7 +43,7 @@
             $page_set = get_all_pages_for_subject($subject_id);
             if ($page_set) {
               while ($pagelisted = mysql_fetch_array($page_set)) {
-                echo "<li><a href=\"index.php?page=" . urlencode($pagelisted['position']) . "\">" . $pagelisted['menu_name'] . "</a></li>"; 
+                echo "<li><a href=\"index.php?page=" . urlencode($pagelisted['id']) . "\">" . $pagelisted['menu_name'] . "</a></li>"; 
               }
             }
             echo "</ul>";
