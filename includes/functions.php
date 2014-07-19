@@ -97,7 +97,12 @@
     global $select_page;
     $output = "<ul class=\"subjects\">";
       // 3. Perform Database Query
-      $subject_set = get_all_subjects();
+      if ($start_page == "content.php") {
+        $public = false;
+      } else {
+        $public = true;
+      }
+      $subject_set = get_all_subjects($public);
       // 4. Use returned data
       while ($subject = mysql_fetch_array($subject_set)) {
         $encSubjId = urlencode($subject["id"]);
