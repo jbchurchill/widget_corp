@@ -102,7 +102,8 @@
         <p>Subject:
           <select name="subject_id">
           <?php 
-            $subject_set = get_all_subjects();
+            $public = false;
+            $subject_set = get_all_subjects($public);
             $subject_count = mysql_num_rows($subject_set);
             for ($count=1; $count <= $subject_count; $count++) {
               if ($count == $select_page['subject_id']) {
@@ -119,8 +120,6 @@
         <p>Position:
           <select name="position">
             <?php 
-              // $subject_set = get_all_subjects(); // ALREADY DONE
-              // $subject_count = mysql_num_rows($subject_set);
               for ($count=1; $count <= $subject_count+1; $count++) {
                 if ($select_page['position'] == $count) {
                   echo "<option value=\"{$count}\" selected>{$count}</option>"; 

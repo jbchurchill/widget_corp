@@ -89,7 +89,8 @@
         <p>Position:
           <select name="position">
             <?php 
-              $subject_set = get_all_subjects();
+              $public = false;
+              $subject_set = get_all_subjects($public);
               $subject_count = mysql_num_rows($subject_set);
               for ($count=1; $count <= $subject_count+1; $count++) {
                 if ($select_subject['position'] == $count) {

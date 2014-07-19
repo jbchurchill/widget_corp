@@ -25,11 +25,14 @@
       die("Database query failed: " . mysql_error());
     }
   }
-  function get_all_subjects () {
+  function get_all_subjects ($public = true) {
     global $connection;
     $query = "SELECT * 
-          FROM subjects 
-          ORDER BY position ASC ";
+          FROM subjects ";
+    if ($public) {
+      $query .= "WHERE visible = 1 ";
+    } 
+    $query .= "ORDER BY position ASC ";
     $subject_set = mysql_query($query, $connection);
     confirm_query($subject_set);
     return $subject_set;
