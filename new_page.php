@@ -22,14 +22,17 @@
         <p>Page Name: <input type="text" name="menu_name" id="menu_name" /></p>
           <?php 
             $position_array_for_select_control = get_positions_by_subject();
+            if (count($position_array_for_select_control) > 0) {
+              $test = true;
+            }
             
             // print_r(json_encode($position_array_for_select_control));
             // print_r($position_array_for_select_control);
             // echo getcwd();
             // echo $page_passed_in . "<br />";
-            print_r($position_array_for_select_control);
-            echo "<br />";
-            echo max($position_array_for_select_control[$select_subject['menu_name']]) . "<br />";
+            // print_r($position_array_for_select_control);
+            // echo "<br />";
+            // echo max($position_array_for_select_control[$select_subject['menu_name']]) . "<br />";
             // I CAN USE THE ABOVE LINE TO SET THE DEFAULT MAX POSITION FOR THE PAGE AT THE START
             // BUT IT WON'T UPDATE WITH NEWLY SELECTED SUBJECTS
             // WHAT WOULD REALLY BE GOOD IS AN ARRAY OF THE MAX POSITION FOR EACH SUBJECT.
@@ -70,7 +73,11 @@
                 $("#position").empty().append(positions);
                 // Set selected Position (currently works only if the selected subject is selected)
                 // Selected subject being the subject the add new page was launched from.
-                $('#position').val("<?php echo max($position_array_for_select_control[$select_subject['menu_name']]); ?>");
+                // THIS NEXT LINE CAUSES AN ERROR WHEN CREATING THE FIRST PAGE OF A NEW TOPIC
+                // BECAUSE MAX DOES NOT WORK IF THE ARRAY IS EMPTY.
+                if ("<?php echo $test; ?>" == true) {
+                  $('#position').val("<?php echo max($position_array_for_select_control[$select_subject['menu_name']]); ?>");
+                }
 
               }
               

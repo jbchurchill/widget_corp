@@ -56,7 +56,11 @@
       }
       // Add one extra value to the position array to give us
       // the best option for a new page.
-      $max_value = max($position_array);
+      if (count($position_array) > 0) {
+        $max_value = max($position_array);
+      } else {
+        $max_value = 0;
+      }
       $extra_value = $max_value + 1;
       $position_array[] = $extra_value;
       // $subject_array[$n] = array($subject['menu_name'], $subject['id'], $position_array);
