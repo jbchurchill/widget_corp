@@ -37,11 +37,14 @@
     confirm_query($subject_set);
     return $subject_set;
   }
-  function get_all_pages_for_subject($subject_id) {
+  function get_all_pages_for_subject($subject_id, $public = true) {
     global $connection;
     $query = "SELECT * 
           FROM pages 
           WHERE subject_id = {$subject_id}";
+    if ($public) {
+      $query .= " AND visible = 1";
+    }
     $page_set = mysql_query($query, $connection);
     confirm_query($page_set);
     return $page_set;
@@ -128,7 +131,7 @@
           }        
         }
         $output .= "<ul class=\"pages\">";
-        $page_set = get_all_pages_for_subject($subject["id"]);
+        $page_set = get_all_pages_for_subject($subject["id"], $public);
         // MAKE ALL OF THIS WORK ONLY ON THE SELECTED SUBJECT
         if (($subject['id'] == $select_subject['id']) || ($subject['id'] == $select_page['subject_id'])) {
 
