@@ -36,23 +36,23 @@
       <div id="page-content">
         <?php
           if ($subject_id) {
-            echo "<h2>Subject: " . $subject['menu_name'] . " - (ID: " . $subject_id . ")</h2>";
-            echo "Position: " . $subject['position'] . "<br />";
-            echo "Visible: " . $subject['visible'] . "<br /><br />";
+            echo "<h2>Subject: " . htmlentities($subject['menu_name']) . " - (ID: " . htmlentities($subject_id) . ")</h2>";
+            echo "Position: " . htmlentities($subject['position']) . "<br />";
+            echo "Visible: " . htmlentities($subject['visible']) . "<br /><br />";
             echo "Pages: <br /><br /><ul>";
             $page_set = get_all_pages_for_subject($subject_id);
             if ($page_set) {
               while ($pagelisted = mysql_fetch_array($page_set)) {
-                echo "<li><a href=\"index.php?page=" . urlencode($pagelisted['id']) . "\">" . $pagelisted['menu_name'] . "</a></li>"; 
+                echo "<li><a href=\"index.php?page=" . urlencode($pagelisted['id']) . "\">" . htmlentities($pagelisted['menu_name']) . "</a></li>"; 
               }
             }
             echo "</ul>";
           }
           if ($page_id) {
-            echo "<h2>Page: " . $page['menu_name'] . " - (ID: " . $page_id . ")</h2>";
-            echo "Position: " . $page['position'] . "<br />";
-            echo "Visible: " . $page['visible'] . "<br /><br />";
-            echo "Content: <br /><br /><p>" . $page['content'] . "</p>";
+            echo "<h2>Page: " . htmlentities($page['menu_name']) . " - (ID: " . htmlentities($page_id) . ")</h2>";
+            echo "Position: " . htmlentities($page['position']) . "<br />";
+            echo "Visible: " . htmlentities($page['visible']) . "<br /><br />";
+            echo "Content: <br /><br /><p>" . strip_tags(nl2br($page['content']), "<a><p><br /><strong>") . "</p>";
           }
         ?>
       </div>
