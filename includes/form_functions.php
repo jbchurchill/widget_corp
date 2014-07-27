@@ -71,4 +71,9 @@
     // print_r($subject_array);
     return $subject_array;
   }
+  function display_errors($errors) {
+    foreach ($errors as $error) {
+      echo "Check " . $error . " for errors<br />";
+    }
+  }
 ?>
