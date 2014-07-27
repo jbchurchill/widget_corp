@@ -1,26 +1,32 @@
 <?php
   require_once("includes/connection.php");
   require_once("includes/functions.php");
-?>
-<?php
-  // NOT SURE IF THIS IS NEEDED IN HERE OR NOT
-  find_selected_page();
+  include_once("includes/form_functions.php");
 ?>
 <?php include("includes/header.php"); ?>
 <table id="structure">
   <tr>
     <td id="navigation">
-      <?php echo navigation("index.php"); ?>
+      <!-- <?php echo navigation("index.php"); ?> -->
       <br />
-      <a href="new_subject.php">+ Add a new subject</a>
+      <!-- <a href="new_subject.php">+ Add a new subject</a> -->
+      <a href="index.php">Return to Main Page</a>
     </td>
     <td id="page">
+      <h2>Login Page</h2>
+      <?php
+        if (!empty($message)) {echo "<p class=\"message\">" . $message . "</p>";}
+      ?>
+      <?php
+        if (!empty($errors)) {display_errors($errors); }
+      ?>
+      
       <div id="page-content">
-        <form id="new_user" action="staff.php">
+        <form id="login">
           Username: <input type="text" name="user" /><br />
           Password:&nbsp; <input type="password" name="pwd" /><br />
           <input type="submit" name="login" value="Login" />
-        </form>
+        </form>      
       </div>
     </td>
   </tr>
