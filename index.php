@@ -30,7 +30,8 @@
     <td id="navigation">
       <?php echo navigation("index.php"); ?>
       <br />
-      <a href="new_subject.php">+ Add a new subject</a>
+      <!-- <a href="new_subject.php">+ Add a new subject</a> THIS IS INDEX.PHP NOT CONTENT.PHP -->
+      <a href="login.php">Log In</a>
     </td>
     <td id="page">
       <div id="page-content">
@@ -47,7 +48,9 @@
               }
             }
             echo "</ul>";
-          }
+          } else {
+            echo "<h2>Welcome to Widget Corp</h2><p>Select a subject in the left&#045;hand panel</p>";
+          } 
           if ($page_id) {
             echo "<h2>Page: " . htmlentities($page['menu_name']) . " - (ID: " . htmlentities($page_id) . ")</h2>";
             echo "Position: " . htmlentities($page['position']) . "<br />";
