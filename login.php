@@ -1,4 +1,5 @@
 <?php
+  require_once("includes/session.php");
   require_once("includes/connection.php");
   require_once("includes/functions.php");
   include_once("includes/form_functions.php");
@@ -24,6 +25,9 @@
       $result = mysql_query($query, $connection);
       confirm_query($result);
       if ($result && mysql_num_rows($result) == 1) {
+        $found_user = mysql_fetch_array($result);
+        $_SESSION['user_id'] = $found_user['id'];
+        $_SESSION['username'] = $found_user['username'];
         redirect_to("staff.php");
         // $message = "The user was successfully authenticated";
       } else {
