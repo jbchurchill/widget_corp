@@ -1,9 +1,12 @@
-<?php
-  require_once("includes/session.php");
-  require_once("includes/connection.php");
-  require_once("includes/functions.php");
-  include_once("includes/form_functions.php");
+<?php require_once("includes/session.php"); ?>
+<?php require_once("includes/connection.php"); ?>
+<?php require_once("includes/functions.php"); ?>
+<?php 
+  if (logged_in()) {
+    redirect_to("staff.php");
+  }
 ?>
+<?php include_once("includes/form_functions.php"); ?>
 <?php
   if (isset($_POST['login'])) { // form has been submitted
     $errors = array();
@@ -44,6 +47,7 @@
     }
   } else { // form was not submitted
     // initialize username and password so we can use them below
+
     include("includes/header.php"); 
     $username = "";
     $password = "";
