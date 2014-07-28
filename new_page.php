@@ -1,8 +1,8 @@
-<?php
-  require_once("includes/connection.php");
-  require_once("includes/functions.php");
-  require_once("includes/form_functions.php");
-?>
+<?php require_once("includes/connection.php"); ?>
+<?php require_once("includes/functions.php"); ?>
+<?php require_once("includes/session.php"); ?>
+<?php confirm_logged_in(); ?>
+<?php require_once("includes/form_functions.php"); ?>
 <?php
   // find_selected_page();
   $page_passed_in = mysql_prep($_GET['subj']);
