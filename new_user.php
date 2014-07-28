@@ -1,8 +1,8 @@
-<?php
-  require_once("includes/connection.php");
-  require_once("includes/functions.php");
-  include_once("includes/form_functions.php");
-?>
+<?php require_once("includes/connection.php"); ?>
+<?php require_once("includes/functions.php"); ?>
+<?php require_once("includes/session.php"); ?>
+<?php confirm_logged_in(); ?>
+<?php include_once("includes/form_functions.php"); ?>
 <?php
   // NOT SURE IF THIS IS NEEDED IN HERE OR NOT
   find_selected_page();
