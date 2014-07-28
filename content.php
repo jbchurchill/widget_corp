@@ -1,7 +1,7 @@
-<?php
-  require_once("includes/connection.php");
-  require_once("includes/functions.php");
-?>
+<?php require_once("includes/connection.php"); ?>
+<?php require_once("includes/functions.php"); ?>
+<?php require_once("includes/session.php"); ?>
+<?php confirm_logged_in(); ?>
 <?php
   find_selected_page();
 ?>

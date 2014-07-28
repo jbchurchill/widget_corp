@@ -1,8 +1,8 @@
-<?php
-  require_once("includes/connection.php");
-  require_once("includes/functions.php");
-  require_once("includes/form_functions.php");
-?>
+<?php require_once("includes/connection.php"); ?>
+<?php require_once("includes/functions.php"); ?>
+<?php require_once("includes/session.php"); ?>
+<?php confirm_logged_in(); ?>
+<?php require_once("includes/form_functions.php"); ?>
 <?php
   $subject = mysql_prep($_POST['subject']);
   $menu_name = mysql_prep($_POST['menu_name']);
