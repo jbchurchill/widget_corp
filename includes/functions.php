@@ -164,7 +164,10 @@
           } // end of if
           $output .= "</ul>";
       }
-    $output .= "</ul>";
+    $output .= "</ul><br /><br />";
+    if ($start_page == "content.php") {
+      $output .= "<a href=\"logout.php\">logout</a><br /><br />";
+    }
     return $output;
   }
 ?>
