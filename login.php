@@ -47,7 +47,6 @@
     }
   } else { // form was not submitted
     // initialize username and password so we can use them below
-
     include("includes/header.php"); 
     $username = "";
     $password = "";
@@ -76,6 +75,11 @@
           <input type="submit" name="login" value="Login" />
         </form>
       </div>
+      <?php
+        if (mysql_prep($_GET['logout']) == 1) {
+          echo "You have been logged out.";
+        }
+      ?>
     </td>
   </tr>
 </table>

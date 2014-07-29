@@ -13,5 +13,5 @@
   // 4) Destroy the session.
   session_destroy();
   // redirect
-  redirect_to("index.php");
+  redirect_to("login.php?logout=1");
 ?>
